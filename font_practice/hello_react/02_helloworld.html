@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$Title$</title>
+</head>
+
+<div id="root"></div>
+
+<script src="script/react.development.js"></script>
+<script src="script/react-dom.development.js"></script>
+<body>
+
+<script>
+    //创建一个react元素 参数：元素名，属性，子元素（内容）
+    const div = React.createElement('div', {}, 'hello world with react!');
+    //获取根元素对应的react元素
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    //将div渲染到root
+    root.render(div);
+
+    /**
+     *
+     */
+    const button = React.createElement('button', {id:'btn'}, '我是一个button');
+    root.render(button);
+
+</script>
+
+</body>
+</html>
