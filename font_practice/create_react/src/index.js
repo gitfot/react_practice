@@ -1,14 +1,17 @@
-// src/index.js 是js的入口文件
-// 引入ReactDOM
-import ReactDOM from 'react-dom/client';
+import ReactDOM from "react-dom/client";
+import './index.css';
 
-// 创建一个JSX
-const App = <div>
-    <h1>这是一个React项目</h1>
-    <p>我终于有了第一个React项目了!!!</p>
+const App = <div className="logs">
+    <div className="logs-item">
+        <div className="logs-date">
+            <div className="month">三月</div>
+            <div className="day">22</div>
+        </div>
+        <div className="logs-item-desc">
+            <h2>学习React</h2>
+            <div className="logs-item-time">80分钟</div>
+        </div>
+    </div>
 </div>;
-
-// 获取一个根容器
 const root = ReactDOM.createRoot(document.getElementById('root'));
-// 将App渲染进根容器
 root.render(App);
