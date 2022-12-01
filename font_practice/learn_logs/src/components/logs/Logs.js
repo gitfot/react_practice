@@ -1,8 +1,9 @@
 import LogItem from "./LogItem";
+import "./Logs.css"
 
 const Logs = () => {
-    return <div>
-        <LogItem/>;
+    return <div className="logs">
+        <LogItem/>
     </div>
 }
 
