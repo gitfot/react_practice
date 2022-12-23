@@ -131,7 +131,7 @@
   var warnAboutStringRefs = false; // -----------------------------------------------------------------------------
   // Debugging and DevTools
   // -----------------------------------------------------------------------------
-  // Adds user timing marks for e.g. state updates, suspense, and work loop stuff,
+  // Adds user timing marks for e.g. 3.6_state updates, suspense, and work loop stuff,
   // for an experimental timeline tool.
 
   var enableSchedulingProfiler = true; // Helps identify side effects in render-phase lifecycle hooks and setState
@@ -1726,7 +1726,7 @@
    * props: `checked`, `value`, `defaultChecked`, and `defaultValue`.
    *
    * If `checked` or `value` are not supplied (or null/undefined), user actions
-   * that affect the checked state or value will trigger updates to the element.
+   * that affect the checked 3.6_state or value will trigger updates to the element.
    *
    * If they are supplied (and not null/undefined), the rendered element will not
    * trigger updates to the element. Instead, the props must change in order for
@@ -2200,7 +2200,7 @@
       if (props.defaultValue != null) {
         updateOptions(node, !!props.multiple, props.defaultValue, true);
       } else {
-        // Revert the select back to its default unselected state.
+        // Revert the select back to its default unselected 3.6_state.
         updateOptions(node, !!props.multiple, props.multiple ? [] : '', false);
       }
     }
@@ -3464,15 +3464,15 @@
 
   var ariaProperties = {
     'aria-current': 0,
-    // state
+    // 3.6_state
     'aria-description': 0,
     'aria-details': 0,
     'aria-disabled': 0,
-    // state
+    // 3.6_state
     'aria-hidden': 0,
-    // state
+    // 3.6_state
     'aria-invalid': 0,
-    // state
+    // 3.6_state
     'aria-keyshortcuts': 0,
     'aria-label': 0,
     'aria-roledescription': 0,
@@ -3944,14 +3944,14 @@
     // Here we wait until all updates have propagated, which is important
     // when using controlled components within layers:
     // https://github.com/facebook/react/issues/1698
-    // Then we restore state of any controlled component.
+    // Then we restore 3.6_state of any controlled component.
     var controlledComponentsHavePendingUpdates = needsStateRestore();
 
     if (controlledComponentsHavePendingUpdates) {
-      // If a controlled event was fired, we may need to restore the state of
+      // If a controlled event was fired, we may need to restore the 3.6_state of
       // the DOM node back to the controlled value. This is necessary when React
       // bails out of the update without touching the DOM.
-      // TODO: Restore state in the microtask, after the discrete updates flush,
+      // TODO: Restore 3.6_state in the microtask, after the discrete updates flush,
       // instead of early flushing them here.
       flushSyncImpl();
       restoreStateIfNeeded();
@@ -3961,7 +3961,7 @@
   function batchedUpdates(fn, a, b) {
     if (isInsideEventHandler) {
       // If we are currently inside another batch, we need to wait until it
-      // fully completes before restoring state.
+      // fully completes before restoring 3.6_state.
       return fn(a, b);
     }
 
@@ -4528,7 +4528,7 @@
         var instance = ownerFiber.stateNode;
 
         if (!instance._warnedAboutRefsInRender) {
-          error('%s is accessing isMounted inside its render() function. ' + 'render() should be a pure function of props and state. It should ' + 'never access something that requires stale data from the previous ' + 'render, such as refs. Move this logic to componentDidMount and ' + 'componentDidUpdate instead.', getComponentNameFromFiber(ownerFiber) || 'A component');
+          error('%s is accessing isMounted inside its render() function. ' + 'render() should be a pure function of props and 3.6_state. It should ' + 'never access something that requires stale data from the previous ' + 'render, such as refs. Move this logic to componentDidMount and ' + 'componentDidUpdate instead.', getComponentNameFromFiber(ownerFiber) || 'A component');
         }
 
         instance._warnedAboutRefsInRender = true;
@@ -5498,9 +5498,9 @@
     // lanes in the same batch, but it's not worth throwing out partially
     // completed work in order to do it.
     // TODO: Reconsider this. The counter-argument is that the partial work
-    // represents an intermediate state, which we don't want to show to the user.
+    // represents an intermediate 3.6_state, which we don't want to show to the user.
     // And by spending extra time finishing it, we're increasing the amount of
-    // time it takes to show the final state, which is what they are actually
+    // time it takes to show the final 3.6_state, which is what they are actually
     // waiting for.
     //
     // For those exceptions where entanglement is semantically important, like
@@ -7739,7 +7739,7 @@
   }
 
   function createAndAccumulateChangeEvent(dispatchQueue, inst, nativeEvent, target) {
-    // Flag this event loop as needing state restore.
+    // Flag this event loop as needing 3.6_state restore.
     enqueueStateRestore(target);
     var listeners = accumulateTwoPhaseListeners(inst, 'onChange');
 
@@ -8989,12 +8989,12 @@
     // because in an ideal world we would not emulate and use
     // the phases properly, like we do with the SimpleEvent
     // plugin. However, the plugins below either expect
-    // emulation (EnterLeave) or use state localized to that
-    // plugin (BeforeInput, Change, Select). The state in
+    // emulation (EnterLeave) or use 3.6_state localized to that
+    // plugin (BeforeInput, Change, Select). The 3.6_state in
     // these modules complicates things, as you'll essentially
     // get the case where the capture phase event might change
-    // state, only for the following bubble event to come in
-    // later and not trigger anything as the state now
+    // 3.6_state, only for the following bubble event to come in
+    // later and not trigger anything as the 3.6_state now
     // invalidates the heuristics of the event plugin. We
     // could alter all these plugins to work in such ways, but
     // that might cause other unknown side-effects that we
@@ -10429,7 +10429,7 @@
         // For input and textarea we current always set the value property at
         // post mount to force it to diverge from attributes. However, for
         // option and select we don't quite do the same thing and select
-        // is not resilient to the DOM state changing so we don't do that here.
+        // is not resilient to the DOM 3.6_state changing so we don't do that here.
         // TODO: Consider not doing this for input and textarea.
         break;
 
@@ -11565,7 +11565,7 @@
 
   function getNodeFromInstance(inst) {
     if (inst.tag === HostComponent || inst.tag === HostText) {
-      // In Fiber this, is just the state node right now. We assume it will be
+      // In Fiber this, is just the 3.6_state node right now. We assume it will be
       // a host component or host text.
       return inst.stateNode;
     } // Without this first invariant, passing a non-DOM-component triggers the next
@@ -12159,13 +12159,13 @@
       if (UNSAFE_componentWillMountUniqueNames.size > 0) {
         var sortedNames = setToSortedString(UNSAFE_componentWillMountUniqueNames);
 
-        error('Using UNSAFE_componentWillMount in strict mode is not recommended and may indicate bugs in your code. ' + 'See https://reactjs.org/link/unsafe-component-lifecycles for details.\n\n' + '* Move code with side effects to componentDidMount, and set initial state in the constructor.\n' + '\nPlease update the following components: %s', sortedNames);
+        error('Using UNSAFE_componentWillMount in strict mode is not recommended and may indicate bugs in your code. ' + 'See https://reactjs.org/link/unsafe-component-lifecycles for details.\n\n' + '* Move code with side effects to componentDidMount, and set initial 3.6_state in the constructor.\n' + '\nPlease update the following components: %s', sortedNames);
       }
 
       if (UNSAFE_componentWillReceivePropsUniqueNames.size > 0) {
         var _sortedNames = setToSortedString(UNSAFE_componentWillReceivePropsUniqueNames);
 
-        error('Using UNSAFE_componentWillReceiveProps in strict mode is not recommended ' + 'and may indicate bugs in your code. ' + 'See https://reactjs.org/link/unsafe-component-lifecycles for details.\n\n' + '* Move data fetching code or side effects to componentDidUpdate.\n' + "* If you're updating state whenever props change, " + 'refactor your code to use memoization techniques or move it to ' + 'static getDerivedStateFromProps. Learn more at: https://reactjs.org/link/derived-state\n' + '\nPlease update the following components: %s', _sortedNames);
+        error('Using UNSAFE_componentWillReceiveProps in strict mode is not recommended ' + 'and may indicate bugs in your code. ' + 'See https://reactjs.org/link/unsafe-component-lifecycles for details.\n\n' + '* Move data fetching code or side effects to componentDidUpdate.\n' + "* If you're updating 3.6_state whenever props change, " + 'refactor your code to use memoization techniques or move it to ' + 'static getDerivedStateFromProps. Learn more at: https://reactjs.org/link/derived-state\n' + '\nPlease update the following components: %s', _sortedNames);
       }
 
       if (UNSAFE_componentWillUpdateUniqueNames.size > 0) {
@@ -12177,13 +12177,13 @@
       if (componentWillMountUniqueNames.size > 0) {
         var _sortedNames3 = setToSortedString(componentWillMountUniqueNames);
 
-        warn('componentWillMount has been renamed, and is not recommended for use. ' + 'See https://reactjs.org/link/unsafe-component-lifecycles for details.\n\n' + '* Move code with side effects to componentDidMount, and set initial state in the constructor.\n' + '* Rename componentWillMount to UNSAFE_componentWillMount to suppress ' + 'this warning in non-strict mode. In React 18.x, only the UNSAFE_ name will work. ' + 'To rename all deprecated lifecycles to their new names, you can run ' + '`npx react-codemod rename-unsafe-lifecycles` in your project source folder.\n' + '\nPlease update the following components: %s', _sortedNames3);
+        warn('componentWillMount has been renamed, and is not recommended for use. ' + 'See https://reactjs.org/link/unsafe-component-lifecycles for details.\n\n' + '* Move code with side effects to componentDidMount, and set initial 3.6_state in the constructor.\n' + '* Rename componentWillMount to UNSAFE_componentWillMount to suppress ' + 'this warning in non-strict mode. In React 18.x, only the UNSAFE_ name will work. ' + 'To rename all deprecated lifecycles to their new names, you can run ' + '`npx react-codemod rename-unsafe-lifecycles` in your project source folder.\n' + '\nPlease update the following components: %s', _sortedNames3);
       }
 
       if (componentWillReceivePropsUniqueNames.size > 0) {
         var _sortedNames4 = setToSortedString(componentWillReceivePropsUniqueNames);
 
-        warn('componentWillReceiveProps has been renamed, and is not recommended for use. ' + 'See https://reactjs.org/link/unsafe-component-lifecycles for details.\n\n' + '* Move data fetching code or side effects to componentDidUpdate.\n' + "* If you're updating state whenever props change, refactor your " + 'code to use memoization techniques or move it to ' + 'static getDerivedStateFromProps. Learn more at: https://reactjs.org/link/derived-state\n' + '* Rename componentWillReceiveProps to UNSAFE_componentWillReceiveProps to suppress ' + 'this warning in non-strict mode. In React 18.x, only the UNSAFE_ name will work. ' + 'To rename all deprecated lifecycles to their new names, you can run ' + '`npx react-codemod rename-unsafe-lifecycles` in your project source folder.\n' + '\nPlease update the following components: %s', _sortedNames4);
+        warn('componentWillReceiveProps has been renamed, and is not recommended for use. ' + 'See https://reactjs.org/link/unsafe-component-lifecycles for details.\n\n' + '* Move data fetching code or side effects to componentDidUpdate.\n' + "* If you're updating 3.6_state whenever props change, refactor your " + 'code to use memoization techniques or move it to ' + 'static getDerivedStateFromProps. Learn more at: https://reactjs.org/link/derived-state\n' + '* Rename componentWillReceiveProps to UNSAFE_componentWillReceiveProps to suppress ' + 'this warning in non-strict mode. In React 18.x, only the UNSAFE_ name will work. ' + 'To rename all deprecated lifecycles to their new names, you can run ' + '`npx react-codemod rename-unsafe-lifecycles` in your project source folder.\n' + '\nPlease update the following components: %s', _sortedNames4);
       }
 
       if (componentWillUpdateUniqueNames.size > 0) {
@@ -12603,7 +12603,7 @@
   var UpdateState = 0;
   var ReplaceState = 1;
   var ForceUpdate = 2;
-  var CaptureUpdate = 3; // Global state that is reset at the beginning of calling `processUpdateQueue`.
+  var CaptureUpdate = 3; // Global 3.6_state that is reset at the beginning of calling `processUpdateQueue`.
   // It should only be read right after calling `processUpdateQueue`, via
   // `checkHasForceUpdateAfterProcessing`.
 
@@ -12881,14 +12881,14 @@
               exitDisallowedContextReadInDEV();
             }
           } else {
-            // Partial state object
+            // Partial 3.6_state object
             partialState = _payload;
           }
 
           if (partialState === null || partialState === undefined) {
             // Null and undefined are treated as no-ops.
             return prevState;
-          } // Merge the partial state and the previous state.
+          } // Merge the partial 3.6_state and the previous 3.6_state.
 
 
           return assign({}, prevState, partialState);
@@ -12975,8 +12975,8 @@
 
         if (!isSubsetOfLanes(renderLanes, updateLane)) {
           // Priority is insufficient. Skip this update. If this is the first
-          // skipped update, the previous update/state is the new base
-          // update/state.
+          // skipped update, the previous update/3.6_state is the new base
+          // update/3.6_state.
           var clone = {
             eventTime: updateEventTime,
             lane: updateLane,
@@ -13173,7 +13173,7 @@
         if (!didWarnAboutUndefinedDerivedState.has(componentName)) {
           didWarnAboutUndefinedDerivedState.add(componentName);
 
-          error('%s.getDerivedStateFromProps(): A valid state object (or null) must be returned. ' + 'You have returned undefined.', componentName);
+          error('%s.getDerivedStateFromProps(): A valid 3.6_state object (or null) must be returned. ' + 'You have returned undefined.', componentName);
         }
       }
     }; // This is so gross but it's at least non-critical and can be removed if
@@ -13209,12 +13209,12 @@
       }
 
       warnOnUndefinedDerivedState(ctor, partialState);
-    } // Merge the partial state and the previous state.
+    } // Merge the partial 3.6_state and the previous 3.6_state.
 
 
     var memoizedState = partialState === null || partialState === undefined ? prevState : assign({}, prevState, partialState);
-    workInProgress.memoizedState = memoizedState; // Once the update queue is empty, persist the derived state onto the
-    // base state.
+    workInProgress.memoizedState = memoizedState; // Once the update queue is empty, persist the derived 3.6_state onto the
+    // base 3.6_state.
 
     if (workInProgress.lanes === NoLanes) {
       // Queue is always non-null for classes
@@ -13355,7 +13355,7 @@
       }
 
       if (instance.getInitialState && !instance.getInitialState.isReactClassApproved && !instance.state) {
-        error('getInitialState was defined on %s, a plain JavaScript class. ' + 'This is only supported for classes created using React.createClass. ' + 'Did you mean to define a state property instead?', name);
+        error('getInitialState was defined on %s, a plain JavaScript class. ' + 'This is only supported for classes created using React.createClass. ' + 'Did you mean to define a 3.6_state property instead?', name);
       }
 
       if (instance.getDefaultProps && !instance.getDefaultProps.isReactClassApproved) {
@@ -13395,7 +13395,7 @@
       }
 
       if (typeof instance.componentDidReceiveProps === 'function') {
-        error('%s has a method called ' + 'componentDidReceiveProps(). But there is no such lifecycle method. ' + 'If you meant to update the state in response to changing props, ' + 'use componentWillReceiveProps(). If you meant to fetch data or ' + 'run side-effects or mutations after React has updated the UI, use componentDidUpdate().', name);
+        error('%s has a method called ' + 'componentDidReceiveProps(). But there is no such lifecycle method. ' + 'If you meant to update the 3.6_state in response to changing props, ' + 'use componentWillReceiveProps(). If you meant to fetch data or ' + 'run side-effects or mutations after React has updated the UI, use componentDidUpdate().', name);
       }
 
       if (typeof instance.componentWillRecieveProps === 'function') {
@@ -13437,7 +13437,7 @@
       var _state = instance.state;
 
       if (_state && (typeof _state !== 'object' || isArray(_state))) {
-        error('%s.state: must be set to an object or null', name);
+        error('%s.3.6_state: must be set to an object or null', name);
       }
 
       if (typeof instance.getChildContext === 'function' && typeof ctor.childContextTypes !== 'object') {
@@ -13523,7 +13523,7 @@
         if (!didWarnAboutUninitializedState.has(componentName)) {
           didWarnAboutUninitializedState.add(componentName);
 
-          error('`%s` uses `getDerivedStateFromProps` but its initial state is ' + '%s. This is not recommended. Instead, define the initial state by ' + 'assigning an object to `this.state` in the constructor of `%s`. ' + 'This ensures that `getDerivedStateFromProps` arguments have a consistent shape.', componentName, instance.state === null ? 'null' : 'undefined', componentName);
+          error('`%s` uses `getDerivedStateFromProps` but its initial 3.6_state is ' + '%s. This is not recommended. Instead, define the initial 3.6_state by ' + 'assigning an object to `this.3.6_state` in the constructor of `%s`. ' + 'This ensures that `getDerivedStateFromProps` arguments have a consistent shape.', componentName, instance.state === null ? 'null' : 'undefined', componentName);
         }
       } // If new component APIs are defined, "unsafe" lifecycles won't be called.
       // Warn about these lifecycles if they are present.
@@ -13589,7 +13589,7 @@
 
     if (oldState !== instance.state) {
       {
-        error('%s.componentWillMount(): Assigning directly to this.state is ' + "deprecated (except inside a component's " + 'constructor). Use setState instead.', getComponentNameFromFiber(workInProgress) || 'Component');
+        error('%s.componentWillMount(): Assigning directly to this.3.6_state is ' + "deprecated (except inside a component's " + 'constructor). Use setState instead.', getComponentNameFromFiber(workInProgress) || 'Component');
       }
 
       classComponentUpdater.enqueueReplaceState(instance, instance.state, null);
@@ -13614,7 +13614,7 @@
         if (!didWarnAboutStateAssignmentForComponent.has(componentName)) {
           didWarnAboutStateAssignmentForComponent.add(componentName);
 
-          error('%s.componentWillReceiveProps(): Assigning directly to ' + "this.state is deprecated (except inside a component's " + 'constructor). Use setState instead.', componentName);
+          error('%s.componentWillReceiveProps(): Assigning directly to ' + "this.3.6_state is deprecated (except inside a component's " + 'constructor). Use setState instead.', componentName);
         }
       }
 
@@ -13649,7 +13649,7 @@
         if (!didWarnAboutDirectlyAssigningPropsToState.has(componentName)) {
           didWarnAboutDirectlyAssigningPropsToState.add(componentName);
 
-          error('%s: It is not recommended to assign props directly to state ' + "because updates to props won't be reflected in state. " + 'In most cases, it is better to use props directly.', componentName);
+          error('%s: It is not recommended to assign props directly to 3.6_state ' + "because updates to props won't be reflected in 3.6_state. " + 'In most cases, it is better to use props directly.', componentName);
         }
       }
 
@@ -13673,7 +13673,7 @@
 
 
     if (typeof ctor.getDerivedStateFromProps !== 'function' && typeof instance.getSnapshotBeforeUpdate !== 'function' && (typeof instance.UNSAFE_componentWillMount === 'function' || typeof instance.componentWillMount === 'function')) {
-      callComponentWillMount(workInProgress, instance); // If we had additional state updates during this life-cycle, let's
+      callComponentWillMount(workInProgress, instance); // If we had additional 3.6_state updates during this life-cycle, let's
       // process them now.
 
       processUpdateQueue(workInProgress, newProps, instance, renderLanes);
@@ -13711,7 +13711,7 @@
     }
 
     var getDerivedStateFromProps = ctor.getDerivedStateFromProps;
-    var hasNewLifecycles = typeof getDerivedStateFromProps === 'function' || typeof instance.getSnapshotBeforeUpdate === 'function'; // Note: During these life-cycles, instance.props/instance.state are what
+    var hasNewLifecycles = typeof getDerivedStateFromProps === 'function' || typeof instance.getSnapshotBeforeUpdate === 'function'; // Note: During these life-cycles, instance.props/instance.3.6_state are what
     // ever the previously attempted to render - not the "current". However,
     // during componentDidUpdate we pass the "current" props.
     // In order to support react-lifecycles-compat polyfilled components,
@@ -13798,12 +13798,12 @@
 
         workInProgress.flags |= _fiberFlags2;
       } // If shouldComponentUpdate returned false, we should still update the
-      // memoized state to indicate that this work can be reused.
+      // memoized 3.6_state to indicate that this work can be reused.
 
 
       workInProgress.memoizedProps = newProps;
       workInProgress.memoizedState = newState;
-    } // Update the existing instance's state, props, and context pointers even
+    } // Update the existing instance's 3.6_state, props, and context pointers even
     // if shouldComponentUpdate returns false.
 
 
@@ -13833,7 +13833,7 @@
     }
 
     var getDerivedStateFromProps = ctor.getDerivedStateFromProps;
-    var hasNewLifecycles = typeof getDerivedStateFromProps === 'function' || typeof instance.getSnapshotBeforeUpdate === 'function'; // Note: During these life-cycles, instance.props/instance.state are what
+    var hasNewLifecycles = typeof getDerivedStateFromProps === 'function' || typeof instance.getSnapshotBeforeUpdate === 'function'; // Note: During these life-cycles, instance.props/instance.3.6_state are what
     // ever the previously attempted to render - not the "current". However,
     // during componentDidUpdate we pass the "current" props.
     // In order to support react-lifecycles-compat polyfilled components,
@@ -13914,12 +13914,12 @@
           workInProgress.flags |= Snapshot;
         }
       } // If shouldComponentUpdate returned false, we should still update the
-      // memoized props/state to indicate that this work can be reused.
+      // memoized props/3.6_state to indicate that this work can be reused.
 
 
       workInProgress.memoizedProps = newProps;
       workInProgress.memoizedState = newState;
-    } // Update the existing instance's state, props, and context pointers even
+    } // Update the existing instance's 3.6_state, props, and context pointers even
     // if shouldComponentUpdate returns false.
 
 
@@ -15814,7 +15814,7 @@
 
   var InvisibleParentSuspenseContext = 1; // Shallow Flags:
   // ForceSuspenseFallback can be used by SuspenseList to force newly added
-  // items into their fallback state during one of the render passes.
+  // items into their fallback 3.6_state during one of the render passes.
 
   var ForceSuspenseFallback = 2;
   var suspenseStackCursor = createCursor(DefaultSuspenseContext);
@@ -16212,7 +16212,7 @@
 
       if (current !== null && (current.flags & StaticMask) !== (workInProgress.flags & StaticMask) && // Disable this warning in legacy mode, because legacy Suspense is weird
       // and creates false positives. To make this work in legacy mode, we'd
-      // need to mark fibers that commit in an incomplete state, somehow. For
+      // need to mark fibers that commit in an incomplete 3.6_state, somehow. For
       // now I'll disable the warning that most of the bugs that would trigger
       // it are either exclusive to concurrent mode or exist in both.
       (current.mode & ConcurrentMode) !== NoMode) {
@@ -16419,7 +16419,7 @@
     }
 
     queue.lastRenderedReducer = reducer;
-    var current = currentHook; // The last rebase update that is NOT part of the base state.
+    var current = currentHook; // The last rebase update that is NOT part of the base 3.6_state.
 
     var baseQueue = current.baseQueue; // The last pending update that hasn't been processed yet.
 
@@ -16462,8 +16462,8 @@
 
         if (!isSubsetOfLanes(renderLanes, updateLane)) {
           // Priority is insufficient. Skip this update. If this is the first
-          // skipped update, the previous update/state is the new base
-          // update/state.
+          // skipped update, the previous update/3.6_state is the new base
+          // update/3.6_state.
           var clone = {
             lane: updateLane,
             action: update.action,
@@ -16502,8 +16502,8 @@
 
 
           if (update.hasEagerState) {
-            // If this update is a state update (not a reducer) and was processed eagerly,
-            // we can use the eagerly computed state
+            // If this update is a 3.6_state update (not a reducer) and was processed eagerly,
+            // we can use the eagerly computed 3.6_state
             newState = update.eagerState;
           } else {
             var action = update.action;
@@ -16518,8 +16518,8 @@
         newBaseState = newState;
       } else {
         newBaseQueueLast.next = newBaseQueueFirst;
-      } // Mark that the fiber performed work, but only if the new state is
-      // different from the current state.
+      } // Mark that the fiber performed work, but only if the new 3.6_state is
+      // different from the current 3.6_state.
 
 
       if (!objectIs(newState, hook.memoizedState)) {
@@ -16584,16 +16584,16 @@
         var action = update.action;
         newState = reducer(newState, action);
         update = update.next;
-      } while (update !== firstRenderPhaseUpdate); // Mark that the fiber performed work, but only if the new state is
-      // different from the current state.
+      } while (update !== firstRenderPhaseUpdate); // Mark that the fiber performed work, but only if the new 3.6_state is
+      // different from the current 3.6_state.
 
 
       if (!objectIs(newState, hook.memoizedState)) {
         markWorkInProgressReceivedUpdate();
       }
 
-      hook.memoizedState = newState; // Don't persist the state accumulated from the render phase updates to
-      // the base state unless the queue is empty.
+      hook.memoizedState = newState; // Don't persist the 3.6_state accumulated from the render phase updates to
+      // the base 3.6_state unless the queue is empty.
       // TODO: Not sure if this is the desired semantics, but it's what we
       // do for gDSFP. I can't remember why.
 
@@ -16687,7 +16687,7 @@
     mountEffect(subscribeToStore.bind(null, fiber, inst, subscribe), [subscribe]); // Schedule an effect to update the mutable instance fields. We will update
     // this whenever subscribe, getSnapshot, or value changes. Because there's no
     // clean-up function, and we track the deps correctly, we can call pushEffect
-    // directly, without storing any additional state. For the same reason, we
+    // directly, without storing any additional 3.6_state. For the same reason, we
     // don't need to set a static flag, either.
     // TODO: We can move this to the passive phase once we add a pre-commit
     // consistency check. See the next comment.
@@ -17310,8 +17310,8 @@
 
       if (fiber.lanes === NoLanes && (alternate === null || alternate.lanes === NoLanes)) {
         // The queue is currently empty, which means we can eagerly compute the
-        // next state before entering the render phase. If the new state is the
-        // same as the current state, we may be able to bail out entirely.
+        // next 3.6_state before entering the render phase. If the new 3.6_state is the
+        // same as the current 3.6_state, we may be able to bail out entirely.
         var lastRenderedReducer = queue.lastRenderedReducer;
 
         if (lastRenderedReducer !== null) {
@@ -17324,9 +17324,9 @@
 
           try {
             var currentState = queue.lastRenderedState;
-            var eagerState = lastRenderedReducer(currentState, action); // Stash the eagerly computed state, and the reducer used to compute
+            var eagerState = lastRenderedReducer(currentState, action); // Stash the eagerly computed 3.6_state, and the reducer used to compute
             // it, on the update object. If the reducer hasn't changed by the
-            // time we enter the render phase, then the eager state can be used
+            // time we enter the render phase, then the eager 3.6_state can be used
             // without calling the reducer again.
 
             update.hasEagerState = true;
@@ -18428,7 +18428,7 @@
             var parentStateNode = parentFiber.stateNode;
 
             if (parentStateNode !== null) {
-              // Detached fibers have their state node cleared out.
+              // Detached fibers have their 3.6_state node cleared out.
               // In this case, the return pointer is also cleared out,
               // so we won't be able to report the time spent in this Profiler's subtree.
               parentStateNode.passiveEffectDuration += elapsedTime;
@@ -18540,7 +18540,7 @@
         console['error'](error); // Don't transform to our wrapper
       }
     } catch (e) {
-      // This method must not throw, or React internal state will get messed up.
+      // This method must not throw, or React internal 3.6_state will get messed up.
       // If console.error is overridden, or logCapturedError() shows a dialog that throws,
       // we want to report this error outside of the normal stack as a last resort.
       // https://github.com/facebook/react/issues/13188
@@ -18621,9 +18621,9 @@
           if (typeof getDerivedStateFromError !== 'function') {
             // If componentDidCatch is the only error boundary method defined,
             // then it needs to call setState to recover from errors.
-            // If no state update is scheduled then the boundary will swallow the error.
+            // If no 3.6_state update is scheduled then the boundary will swallow the error.
             if (!includesSomeLane(fiber.lanes, SyncLane)) {
-              error('%s: Error boundaries should implement getDerivedStateFromError(). ' + 'In that method, return a state update to display an error message or fallback UI.', getComponentNameFromFiber(fiber) || 'Unknown');
+              error('%s: Error boundaries should implement getDerivedStateFromError(). ' + 'In that method, return a 3.6_state update to display an error message or fallback UI.', getComponentNameFromFiber(fiber) || 'Unknown');
             }
           }
         }
@@ -18683,7 +18683,7 @@
     //
     // If the fallback does commit, we need to attach a different type of
     // listener. This one schedules an update on the Suspense boundary to turn
-    // the fallback state off.
+    // the fallback 3.6_state off.
     //
     // Stash the wakeable on the boundary fiber so we can access it in the
     // commit phase.
@@ -18782,7 +18782,7 @@
             sourceFiber.tag = IncompleteClassComponent;
           } else {
             // When we try rendering again, we should not reuse the current fiber,
-            // since it's known to be in an inconsistent state. Use a force update to
+            // since it's known to be in an inconsistent 3.6_state. Use a force update to
             // prevent a bail out.
             var update = createUpdate(NoTimestamp, SyncLane);
             update.tag = ForceUpdate;
@@ -18810,7 +18810,7 @@
     // it doesn't make sense to restart only while in the period we're suspended.
     //
     // Restarting too aggressively is also not good because it starves out any
-    // intermediate loading state. So we use heuristics to determine when.
+    // intermediate loading 3.6_state. So we use heuristics to determine when.
     // Suspense Heuristics
     //
     // If nothing threw a Promise or all the same fallbacks are already showing,
@@ -18818,7 +18818,7 @@
     //
     // If this is an initial render of a new tree of Suspense boundaries and
     // those trigger a fallback, then don't suspend/restart. We want to ensure
-    // that we can show the initial loading state as quickly as possible.
+    // that we can show the initial loading 3.6_state as quickly as possible.
     //
     // If we hit a "Delayed" case, such as when we'd switch from content back into
     // a fallback, then we should always suspend/restart. Transitions apply
@@ -18829,12 +18829,12 @@
     // then we suspend/restart for 500ms since the last time we showed a fallback
     // anywhere in the tree. This effectively throttles progressive loading into a
     // consistent train of commits. This also gives us an opportunity to restart to
-    // get to the completed state slightly earlier.
+    // get to the completed 3.6_state slightly earlier.
     //
     // If there's ambiguity due to batching it's resolved in preference of:
     // 1) "delayed", 2) "initial render", 3) "retry".
     //
-    // We want to ensure that a "busy" state doesn't get force committed. We want to
+    // We want to ensure that a "busy" 3.6_state doesn't get force committed. We want to
     // ensure that new initial loading states can commit as soon as possible.
 
 
@@ -18891,7 +18891,7 @@
           return;
         } // This is a sync/discrete update. We treat this case like an error
         // because discrete renders are expected to produce a complete tree
-        // synchronously to maintain consistency with external state.
+        // synchronously to maintain consistency with external 3.6_state.
 
 
         var uncaughtSuspenseError = new Error('A component suspended while responding to synchronous input. This ' + 'will cause the UI to be replaced with a loading indicator. To ' + 'fix, updates that suspend should be wrapped ' + 'with startTransition.'); // If we're outside a transition, fall through to the regular error path.
@@ -18957,7 +18957,7 @@
 
             var _lane = pickArbitraryLane(rootRenderLanes);
 
-            workInProgress.lanes = mergeLanes(workInProgress.lanes, _lane); // Schedule the error boundary to re-render using updated state
+            workInProgress.lanes = mergeLanes(workInProgress.lanes, _lane); // Schedule the error boundary to re-render using updated 3.6_state
 
             var _update = createClassErrorUpdate(workInProgress, errorInfo, _lane);
 
@@ -19440,7 +19440,7 @@
             }
 
             if (nextState !== null && nextState.dehydrated !== null) {
-              // We might be inside a hydration state the first time we're picking up this
+              // We might be inside a hydration 3.6_state the first time we're picking up this
               // Suspense boundary, and also after we've reentered it for further hydration.
               var _wasHydrated3 = popHydrationState(workInProgress);
 
@@ -19471,7 +19471,7 @@
                 return null;
               } else {
                 // We might have reentered this boundary to hydrate it. If so, we need to reset the hydration
-                // state since we're now exiting out of it. popHydrationState doesn't do that for us.
+                // 3.6_state since we're now exiting out of it. popHydrationState doesn't do that for us.
                 resetHydrationState();
 
                 if ((workInProgress.flags & DidCapture) === NoFlags) {
@@ -19693,7 +19693,7 @@
                     } // Rerender the whole list, but this time, we'll force fallbacks
                     // to stay in place.
                     // Reset the effect flags before doing the second pass since that's now invalid.
-                    // Reset the child fibers to their original state.
+                    // Reset the child fibers to their original 3.6_state.
 
 
                     workInProgress.subtreeFlags = NoFlags;
@@ -20363,7 +20363,7 @@
         case false:
           {
             var _instance = workInProgress.stateNode;
-            var ctor = workInProgress.type; // TODO This way of resetting the error boundary state is a hack.
+            var ctor = workInProgress.type; // TODO This way of resetting the error boundary 3.6_state is a hack.
             // Is there a better way to do this?
 
             var tempInstance = new ctor(workInProgress.memoizedProps, _instance.context);
@@ -20381,7 +20381,7 @@
 
             var error$1 = new Error('Simulated error coming from DevTools');
             var lane = pickArbitraryLane(renderLanes);
-            workInProgress.lanes = mergeLanes(workInProgress.lanes, lane); // Schedule the error boundary to re-render using updated state
+            workInProgress.lanes = mergeLanes(workInProgress.lanes, lane); // Schedule the error boundary to re-render using updated 3.6_state
 
             var update = createClassErrorUpdate(workInProgress, createCapturedValue(error$1, workInProgress), lane);
             enqueueCapturedUpdate(workInProgress, update);
@@ -20420,7 +20420,7 @@
     if (instance === null) {
       if (current !== null) {
         // A class component without an instance only mounts if it suspended
-        // inside a non-concurrent tree, in an inconsistent state. We want to
+        // inside a non-concurrent tree, in an inconsistent 3.6_state. We want to
         // treat it like a new mount, even though an empty version of it already
         // committed. Disconnect the alternate pointers.
         current.alternate = null;
@@ -20525,7 +20525,7 @@
       forceUnmountCurrentAndReconcile(current, workInProgress, nextChildren, renderLanes);
     } else {
       reconcileChildren(current, workInProgress, nextChildren, renderLanes);
-    } // Memoize state using the values we just used to render.
+    } // Memoize 3.6_state using the values we just used to render.
     // TODO: Restructure so we never read values from the instance.
 
 
@@ -20581,7 +20581,7 @@
         cache: nextState.cache,
         transitions: nextState.transitions
       };
-      var updateQueue = workInProgress.updateQueue; // `baseState` can always be the last state because the root doesn't
+      var updateQueue = workInProgress.updateQueue; // `baseState` can always be the last 3.6_state because the root doesn't
       // have reducer functions so it doesn't need rebasing.
 
       updateQueue.baseState = overrideState;
@@ -20682,7 +20682,7 @@
   function mountLazyComponent(_current, workInProgress, elementType, renderLanes) {
     if (_current !== null) {
       // A lazy component only mounts if it suspended inside a non-
-      // concurrent tree, in an inconsistent state. We want to treat it like
+      // concurrent tree, in an inconsistent 3.6_state. We want to treat it like
       // a new mount, even though an empty version of it already committed.
       // Disconnect the alternate pointers.
       _current.alternate = null;
@@ -20770,7 +20770,7 @@
   function mountIncompleteClassComponent(_current, workInProgress, Component, nextProps, renderLanes) {
     if (_current !== null) {
       // An incomplete component only mounts if it suspended inside a non-
-      // concurrent tree, in an inconsistent state. We want to treat it like
+      // concurrent tree, in an inconsistent 3.6_state. We want to treat it like
       // a new mount, even though an empty version of it already committed.
       // Disconnect the alternate pointers.
       _current.alternate = null;
@@ -20803,7 +20803,7 @@
   function mountIndeterminateComponent(_current, workInProgress, Component, renderLanes) {
     if (_current !== null) {
       // An indeterminate component only mounts if it suspended inside a non-
-      // concurrent tree, in an inconsistent state. We want to treat it like
+      // concurrent tree, in an inconsistent 3.6_state. We want to treat it like
       // a new mount, even though an empty version of it already committed.
       // Disconnect the alternate pointers.
       _current.alternate = null;
@@ -21059,9 +21059,9 @@
     } else {
       // Attempting the main content
       if (current === null || current.memoizedState !== null) {
-        // This is a new mount or this boundary is already showing a fallback state.
+        // This is a new mount or this boundary is already showing a fallback 3.6_state.
         // Mark this subtree context as having at least one invisible parent that could
-        // handle the fallback state.
+        // handle the fallback 3.6_state.
         // Avoided boundaries are not considered since they cannot handle preferred fallback states.
         {
           suspenseContext = addSubtreeSuspenseContext(suspenseContext, InvisibleParentSuspenseContext);
@@ -21075,12 +21075,12 @@
     // main reasons this is so complicated.
     //
     // First, Legacy Mode has different semantics for backwards compatibility. The
-    // primary tree will commit in an inconsistent state, so when we do the
+    // primary tree will commit in an inconsistent 3.6_state, so when we do the
     // second pass to render the fallback, we do some exceedingly, uh, clever
     // hacks to make that not totally break. Like transferring effects and
     // deletions from hidden tree. In Concurrent Mode, it's much simpler,
     // because we bailout on the primary tree completely and leave it in its old
-    // state, no effects. Same as what we do for Offscreen (except that
+    // 3.6_state, no effects. Same as what we do for Offscreen (except that
     // Offscreen doesn't have the first render pass).
     //
     // Second is hydration. During hydration, the Suspense fiber has a slightly
@@ -21238,7 +21238,7 @@
 
     if ((mode & ConcurrentMode) === NoMode && progressedPrimaryFragment !== null) {
       // In legacy mode, we commit the primary tree as if it successfully
-      // completed, even though it's in an inconsistent state.
+      // completed, even though it's in an inconsistent 3.6_state.
       primaryChildFragment = progressedPrimaryFragment;
       primaryChildFragment.childLanes = NoLanes;
       primaryChildFragment.pendingProps = primaryChildProps;
@@ -21321,7 +21321,7 @@
     var primaryChildFragment;
 
     if ( // In legacy mode, we commit the primary tree as if it successfully
-    // completed, even though it's in an inconsistent state.
+    // completed, even though it's in an inconsistent 3.6_state.
     (mode & ConcurrentMode) === NoMode && // Make sure we're on the second pass, i.e. the primary child fragment was
     // already cloned. In legacy mode, the only case where this isn't true is
     // when DevTools forces us to display a fallback; we skip the first render
@@ -21470,7 +21470,7 @@
     }
 
     if (isSuspenseInstanceFallback(suspenseInstance)) {
-      // This boundary is in a permanent fallback state. In this case, we'll never
+      // This boundary is in a permanent fallback 3.6_state. In this case, we'll never
       // get an update and we'll never be able to hydrate the final content. Let's just try the
       // client side render instead.
       return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, // TODO: The server should serialize the error message so we can log it
@@ -21517,7 +21517,7 @@
       // on missing data anyway. Additionally, the server might be able to render more
       // than we can on the client yet. In that case we'd end up with more fallback states
       // on the client than if we just leave it alone. If the server times out or errors
-      // these should update this boundary to the permanent Fallback state instead.
+      // these should update this boundary to the permanent Fallback 3.6_state instead.
       // Mark it as having captured (i.e. suspended).
       workInProgress.flags |= DidCapture; // Leave the child in place. I.e. the dehydrated fragment.
 
@@ -21599,9 +21599,9 @@
 
   function findLastContentRow(firstChild) {
     // This is going to find the last row among these children that is already
-    // showing content on the screen, as opposed to being in fallback state or
+    // showing content on the screen, as opposed to being in fallback 3.6_state or
     // new. If a row has multiple Suspense boundaries, any of them being in the
-    // fallback state, counts as the whole row being in a fallback state.
+    // fallback 3.6_state, counts as the whole row being in a fallback 3.6_state.
     // Note that the "rows" will be workInProgress, but any nested children
     // will still be current since we haven't rendered them yet. The mounted
     // order may not be the same as the new order. We use the new order.
@@ -21748,10 +21748,10 @@
     }
   } // This can end up rendering this component multiple passes.
   // The first pass splits the children fibers into two sets. A head and tail.
-  // We first render the head. If anything is in fallback state, we do another
+  // We first render the head. If anything is in fallback 3.6_state, we do another
   // pass through beginWork to rerender all children (including the tail) with
   // the force suspend context. If the first render didn't have anything in
-  // in fallback state. Then we render each row in the tail one-by-one.
+  // in fallback 3.6_state. Then we render each row in the tail one-by-one.
   // That happens in the completeWork phase without going back to beginWork.
 
 
@@ -22220,9 +22220,9 @@
 
           if (didSuspendBefore) {
             if (_hasChildWork) {
-              // If something was in fallback state last time, and we have all the
-              // same children then we're still in progressive loading state.
-              // Something might get unblocked by state updates or retries in the
+              // If something was in fallback 3.6_state last time, and we have all the
+              // same children then we're still in progressive loading 3.6_state.
+              // Something might get unblocked by 3.6_state updates or retries in the
               // tree which will affect the tail. So we need to use the normal
               // path to compute the correct tail.
               return updateSuspenseListComponent(current, workInProgress, renderLanes);
@@ -22234,7 +22234,7 @@
             workInProgress.flags |= DidCapture;
           } // If nothing suspended before and we're rendering the same children,
           // then the tail doesn't matter. Anything new that suspends will work
-          // in the "together" mode, so we can continue from the state we had.
+          // in the "together" mode, so we can continue from the 3.6_state we had.
 
 
           var renderState = workInProgress.memoizedState;
@@ -22656,7 +22656,7 @@
 
   {
     didWarnAboutUndefinedSnapshotBeforeUpdate = new Set();
-  } // Used during the commit phase to track the state of the Offscreen component stack.
+  } // Used during the commit phase to track the 3.6_state of the Offscreen component stack.
   // Allows us to avoid traversing the return path to find the nearest Offscreen ancestor.
   // Only used when enableSuspenseLayoutEffectSemantics is enabled.
 
@@ -22855,7 +22855,7 @@
             if (current !== null) {
               var prevProps = current.memoizedProps;
               var prevState = current.memoizedState;
-              var instance = finishedWork.stateNode; // We could update instance props and state here,
+              var instance = finishedWork.stateNode; // We could update instance props and 3.6_state here,
               // but instead we rely on them being set during last render.
               // TODO: revisit this when we implement resuming.
 
@@ -22866,7 +22866,7 @@
                   }
 
                   if (instance.state !== finishedWork.memoizedState) {
-                    error('Expected %s state to match memoized state before ' + 'getSnapshotBeforeUpdate. ' + 'This might either be because of a bug in React, or because ' + 'a component reassigns its own `this.state`. ' + 'Please file an issue.', getComponentNameFromFiber(finishedWork) || 'instance');
+                    error('Expected %s 3.6_state to match memoized 3.6_state before ' + 'getSnapshotBeforeUpdate. ' + 'This might either be because of a bug in React, or because ' + 'a component reassigns its own `this.3.6_state`. ' + 'Please file an issue.', getComponentNameFromFiber(finishedWork) || 'instance');
                   }
                 }
               }
@@ -23005,7 +23005,7 @@
               if (destroy === null) {
                 addendum = ' You returned null. If your effect does not require clean ' + 'up, return undefined (or nothing).';
               } else if (typeof destroy.then === 'function') {
-                addendum = '\n\nIt looks like you wrote ' + hookName + '(async () => ...) or returned a Promise. ' + 'Instead, write the async function inside your effect ' + 'and call it immediately:\n\n' + hookName + '(() => {\n' + '  async function fetchData() {\n' + '    // You can await here\n' + '    const response = await MyAPI.getData(someId);\n' + '    // ...\n' + '  }\n' + '  fetchData();\n' + "}, [someId]); // Or [] if effect doesn't need props or state\n\n" + 'Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-fetching';
+                addendum = '\n\nIt looks like you wrote ' + hookName + '(async () => ...) or returned a Promise. ' + 'Instead, write the async function inside your effect ' + 'and call it immediately:\n\n' + hookName + '(() => {\n' + '  async function fetchData() {\n' + '    // You can await here\n' + '    const response = await MyAPI.getData(someId);\n' + '    // ...\n' + '  }\n' + '  fetchData();\n' + "}, [someId]); // Or [] if effect doesn't need props or 3.6_state\n\n" + 'Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-fetching';
               } else {
                 addendum = ' You returned: ' + destroy;
               }
@@ -23107,7 +23107,7 @@
             if (finishedWork.flags & Update) {
               if (!offscreenSubtreeWasHidden) {
                 if (current === null) {
-                  // We could update instance props and state here,
+                  // We could update instance props and 3.6_state here,
                   // but instead we rely on them being set during last render.
                   // TODO: revisit this when we implement resuming.
                   {
@@ -23117,7 +23117,7 @@
                       }
 
                       if (instance.state !== finishedWork.memoizedState) {
-                        error('Expected %s state to match memoized state before ' + 'componentDidMount. ' + 'This might either be because of a bug in React, or because ' + 'a component reassigns its own `this.state`. ' + 'Please file an issue.', getComponentNameFromFiber(finishedWork) || 'instance');
+                        error('Expected %s 3.6_state to match memoized 3.6_state before ' + 'componentDidMount. ' + 'This might either be because of a bug in React, or because ' + 'a component reassigns its own `this.3.6_state`. ' + 'Please file an issue.', getComponentNameFromFiber(finishedWork) || 'instance');
                       }
                     }
                   }
@@ -23134,7 +23134,7 @@
                   }
                 } else {
                   var prevProps = finishedWork.elementType === finishedWork.type ? current.memoizedProps : resolveDefaultProps(finishedWork.type, current.memoizedProps);
-                  var prevState = current.memoizedState; // We could update instance props and state here,
+                  var prevState = current.memoizedState; // We could update instance props and 3.6_state here,
                   // but instead we rely on them being set during last render.
                   // TODO: revisit this when we implement resuming.
 
@@ -23145,7 +23145,7 @@
                       }
 
                       if (instance.state !== finishedWork.memoizedState) {
-                        error('Expected %s state to match memoized state before ' + 'componentDidUpdate. ' + 'This might either be because of a bug in React, or because ' + 'a component reassigns its own `this.state`. ' + 'Please file an issue.', getComponentNameFromFiber(finishedWork) || 'instance');
+                        error('Expected %s 3.6_state to match memoized 3.6_state before ' + 'componentDidUpdate. ' + 'This might either be because of a bug in React, or because ' + 'a component reassigns its own `this.3.6_state`. ' + 'Please file an issue.', getComponentNameFromFiber(finishedWork) || 'instance');
                       }
                     }
                   }
@@ -23176,10 +23176,10 @@
                   }
 
                   if (instance.state !== finishedWork.memoizedState) {
-                    error('Expected %s state to match memoized state before ' + 'processing the update queue. ' + 'This might either be because of a bug in React, or because ' + 'a component reassigns its own `this.state`. ' + 'Please file an issue.', getComponentNameFromFiber(finishedWork) || 'instance');
+                    error('Expected %s 3.6_state to match memoized 3.6_state before ' + 'processing the update queue. ' + 'This might either be because of a bug in React, or because ' + 'a component reassigns its own `this.3.6_state`. ' + 'Please file an issue.', getComponentNameFromFiber(finishedWork) || 'instance');
                   }
                 }
-              } // We could update instance props and state here,
+              } // We could update instance props and 3.6_state here,
               // but instead we rely on them being set during last render.
               // TODO: revisit this when we implement resuming.
 
@@ -23640,7 +23640,7 @@
 
   function detachFiberMutation(fiber) {
     // Cut off the return pointer to disconnect it from the tree.
-    // This enables us to detect and warn against state updates on an unmounted component.
+    // This enables us to detect and warn against 3.6_state updates on an unmounted component.
     // It also prevents events from bubbling from within disconnected components.
     //
     // Ideally, we should also clear the child pointer of the parent alternate to let this
@@ -24150,7 +24150,7 @@
   function attachSuspenseRetryListeners(finishedWork) {
     // If this boundary just timed out, then it will have a set of wakeables.
     // For each wakeable, attach a listener so that when it resolves, React
-    // attempts to re-render the boundary in the primary (pre-timeout) state.
+    // attempts to re-render the boundary in the primary (pre-timeout) 3.6_state.
     var wakeables = finishedWork.updateQueue;
 
     if (wakeables !== null) {
@@ -24406,7 +24406,7 @@
       var firstChild = fiber.child;
 
       if ( fiber.tag === OffscreenComponent && isModernRoot) {
-        // Keep track of the current Offscreen stack's state.
+        // Keep track of the current Offscreen stack's 3.6_state.
         var isHidden = fiber.memoizedState !== null;
         var newOffscreenSubtreeIsHidden = isHidden || offscreenSubtreeIsHidden;
 
@@ -24439,7 +24439,7 @@
             commitLayoutEffects_begin(child, // New root; bubble back up to here and stop.
             root, committedLanes);
             child = child.sibling;
-          } // Restore Offscreen state and resume in our-progress traversal.
+          } // Restore Offscreen 3.6_state and resume in our-progress traversal.
 
 
           nextEffect = fiber;
@@ -25261,7 +25261,7 @@
   function requestRetryLane(fiber) {
     // This is a fork of `requestUpdateLane` designed specifically for Suspense
     // "retries" — a special update that attempts to flip a Suspense boundary
-    // from its placeholder state to its primary/resolved state.
+    // from its placeholder 3.6_state to its primary/resolved 3.6_state.
     // Special cases
     var mode = fiber.mode;
 
@@ -25744,7 +25744,7 @@
 
       case RootSuspended:
         {
-          markRootSuspended$1(root, lanes); // We have an acceptable loading state. We need to figure out if we
+          markRootSuspended$1(root, lanes); // We have an acceptable loading 3.6_state. We need to figure out if we
           // should immediately commit it or wait a bit.
 
           if (includesOnlyRetries(lanes) && // do not delay if we're inside an act() scope
@@ -25798,7 +25798,7 @@
           }
 
           if (!shouldForceFlushFallbacksInDEV()) {
-            // This is not a transition, but we did trigger an avoided state.
+            // This is not a transition, but we did trigger an avoided 3.6_state.
             // Schedule a placeholder to display after a short delay, using the Just
             // Noticeable Difference.
             // TODO: Is the JND optimization worth the added complexity? If this is
@@ -26073,7 +26073,7 @@
 
     if (timeoutHandle !== noTimeout) {
       // The root previous suspended and scheduled a timeout to commit a fallback
-      // state. Now that we have additional work, cancel the timeout.
+      // 3.6_state. Now that we have additional work, cancel the timeout.
       root.timeoutHandle = noTimeout; // $FlowFixMe Complains noTimeout is not a TimeoutID, despite the check above
 
       cancelTimeout(timeoutHandle);
@@ -26114,7 +26114,7 @@
       var erroredWork = workInProgress;
 
       try {
-        // Reset module-level state that was set during the render phase.
+        // Reset module-level 3.6_state that was set during the render phase.
         resetContextDependencies();
         resetHooksAfterThrow();
         resetCurrentFiber(); // TODO: I found and added this missing line while investigating a
@@ -26390,7 +26390,7 @@
   }
 
   function performUnitOfWork(unitOfWork) {
-    // The current, flushed, state of this fiber is the alternate. Ideally
+    // The current, flushed, 3.6_state of this fiber is the alternate. Ideally
     // nothing should rely on this, but relying on it here means that we don't
     // need an additional field on the work in progress.
     var current = unitOfWork.alternate;
@@ -26424,7 +26424,7 @@
     var completedWork = unitOfWork;
 
     do {
-      // The current, flushed, state of this fiber is the alternate. Ideally
+      // The current, flushed, 3.6_state of this fiber is the alternate. Ideally
       // nothing should rely on this, but relying on it here means that we don't
       // need an additional field on the work in progress.
       var current = completedWork.alternate;
@@ -26633,7 +26633,7 @@
       // of the effect list for each phase: all mutation effects come before all
       // layout effects, and so on.
       // The first phase a "before mutation" phase. We use this phase to read the
-      // state of the host tree right before we mutate it. This is where
+      // 3.6_state of the host tree right before we mutate it. This is where
       // getSnapshotBeforeUpdate is called.
 
       var shouldFireAfterActiveInstanceBlur = commitBeforeMutationEffects(root, finishedWork);
@@ -27011,7 +27011,7 @@
 
   function retryTimedOutBoundary(boundaryFiber, retryLane) {
     // The boundary fiber (a Suspense component or SuspenseList component)
-    // previously was rendered in its fallback state. One of the promises that
+    // previously was rendered in its fallback 3.6_state. One of the promises that
     // suspended it has resolved, which means at least part of the tree was
     // likely unblocked. Try rendering again, at a new lanes.
     if (retryLane === NoLane) {
@@ -27077,7 +27077,7 @@
   // The theory is that a person can't tell the difference between small differences in time.
   // Therefore, if we wait a bit longer than necessary that won't translate to a noticeable
   // difference in the experience. However, waiting for longer might mean that we can avoid
-  // showing an intermediate loading state. The longer we have already waited, the harder it
+  // showing an intermediate loading 3.6_state. The longer we have already waited, the harder it
   // is to tell small differences in time. Therefore, the longer we've already waited,
   // the longer we can wait additionally. At some point we have to give up though.
   // We pick a train model where the next boundary commits at a consistent schedule.
@@ -27201,7 +27201,7 @@
       try {
         setCurrentFiber(fiber);
 
-        error("Can't perform a React state update on a component that hasn't mounted yet. " + 'This indicates that you have a side-effect in your render function that ' + 'asynchronously later calls tries to update the component. Move this work to ' + 'useEffect instead.');
+        error("Can't perform a React 3.6_state update on a component that hasn't mounted yet. " + 'This indicates that you have a side-effect in your render function that ' + 'asynchronously later calls tries to update the component. Move this work to ' + 'useEffect instead.');
       } finally {
         if (previousFiber) {
           setCurrentFiber(fiber);
@@ -27222,7 +27222,7 @@
       // dispatched event, so that the debugger will treat it as an uncaught
       // error See ReactErrorUtils for more information.
       // Before entering the begin phase, copy the work-in-progress onto a dummy
-      // fiber. If beginWork throws, we'll use this to reset the state.
+      // fiber. If beginWork throws, we'll use this to reset the 3.6_state.
       var originalWorkInProgressCopy = assignFiberPropertiesInDEV(dummyFiber, unitOfWork);
 
       try {
@@ -27300,7 +27300,7 @@
           case ClassComponent:
             {
               if (!didWarnAboutUpdateInRender) {
-                error('Cannot update during an existing state transition (such as ' + 'within `render`). Render methods should be a pure ' + 'function of props and state.');
+                error('Cannot update during an existing 3.6_state transition (such as ' + 'within `render`). Render methods should be a pure ' + 'function of props and 3.6_state.');
 
                 didWarnAboutUpdateInRender = true;
               }
@@ -27388,7 +27388,7 @@
         try {
           setCurrentFiber(fiber);
 
-          error('An update to %s inside a test was not wrapped in act(...).\n\n' + 'When testing, code that causes React state updates should be ' + 'wrapped into act(...):\n\n' + 'act(() => {\n' + '  /* fire events that update state */\n' + '});\n' + '/* assert on the output */\n\n' + "This ensures that you're testing the behavior the user would see " + 'in the browser.' + ' Learn more at https://reactjs.org/link/wrap-tests-with-act', getComponentNameFromFiber(fiber));
+          error('An update to %s inside a test was not wrapped in act(...).\n\n' + 'When testing, code that causes React 3.6_state updates should be ' + 'wrapped into act(...):\n\n' + 'act(() => {\n' + '  /* fire events that update 3.6_state */\n' + '});\n' + '/* assert on the output */\n\n' + "This ensures that you're testing the behavior the user would see " + 'in the browser.' + ' Learn more at https://reactjs.org/link/wrap-tests-with-act', getComponentNameFromFiber(fiber));
         } finally {
           if (previousFiber) {
             setCurrentFiber(fiber);
@@ -27546,7 +27546,7 @@
 
       if (needsCompareFamilies) {
         // Note: memo() and forwardRef() we'll compare outer rather than inner type.
-        // This means both of them need to be registered to preserve state.
+        // This means both of them need to be registered to preserve 3.6_state.
         // If we unwrapped and compared the inner types for wrappers instead,
         // then we would risk falsely saying two separate memo(Foo)
         // calls are equivalent because they wrap the same Foo function.
@@ -28619,7 +28619,7 @@
       if (isRendering && current !== null && !didWarnAboutNestedUpdates) {
         didWarnAboutNestedUpdates = true;
 
-        error('Render methods should be a pure function of props and state; ' + 'triggering nested component updates from render is not allowed. ' + 'If necessary, trigger nested updates in componentDidUpdate.\n\n' + 'Check the render method of %s.', getComponentNameFromFiber(current) || 'Unknown');
+        error('Render methods should be a pure function of props and 3.6_state; ' + 'triggering nested component updates from render is not allowed. ' + 'If necessary, trigger nested updates in componentDidUpdate.\n\n' + 'Check the render method of %s.', getComponentNameFromFiber(current) || 'Unknown');
       }
     }
 
@@ -29238,7 +29238,7 @@
       var hasNonRootReactChild = !!(rootEl && getInstanceFromNode(rootEl));
 
       if (hasNonRootReactChild && !isRootRenderedBySomeReact) {
-        error('render(...): Replacing React-rendered children with a new root ' + 'component. If you intended to update the children of this node, ' + 'you should instead have the existing children update their state ' + 'and render the new components instead of calling ReactDOM.render.');
+        error('render(...): Replacing React-rendered children with a new root ' + 'component. If you intended to update the children of this node, ' + 'you should instead have the existing children update their 3.6_state ' + 'and render the new components instead of calling ReactDOM.render.');
       }
 
       if (container.nodeType === ELEMENT_NODE && container.tagName && container.tagName.toUpperCase() === 'BODY') {
@@ -29370,7 +29370,7 @@
         var warnedAboutRefsInRender = owner.stateNode._warnedAboutRefsInRender;
 
         if (!warnedAboutRefsInRender) {
-          error('%s is accessing findDOMNode inside its render(). ' + 'render() should be a pure function of props and state. It should ' + 'never access something that requires stale data from the previous ' + 'render, such as refs. Move this logic to componentDidMount and ' + 'componentDidUpdate instead.', getComponentNameFromType(owner.type) || 'A component');
+          error('%s is accessing findDOMNode inside its render(). ' + 'render() should be a pure function of props and 3.6_state. It should ' + 'never access something that requires stale data from the previous ' + 'render, such as refs. Move this logic to componentDidMount and ' + 'componentDidUpdate instead.', getComponentNameFromType(owner.type) || 'A component');
         }
 
         owner.stateNode._warnedAboutRefsInRender = true;
@@ -29486,7 +29486,7 @@
         var isContainerReactRoot = container.nodeType === ELEMENT_NODE && isValidContainerLegacy(container.parentNode) && !!container.parentNode._reactRootContainer;
 
         if (hasNonRootReactChild) {
-          error("unmountComponentAtNode(): The node you're attempting to unmount " + 'was rendered by React and is not a top-level container. %s', isContainerReactRoot ? 'You may have accidentally passed in a React root node instead ' + 'of its container.' : 'Instead, have the parent component update its state and ' + 'rerender in order to remove this component.');
+          error("unmountComponentAtNode(): The node you're attempting to unmount " + 'was rendered by React and is not a top-level container. %s', isContainerReactRoot ? 'You may have accidentally passed in a React root node instead ' + 'of its container.' : 'Instead, have the parent component update its 3.6_state and ' + 'rerender in order to remove this component.');
         }
       }
 

@@ -212,7 +212,7 @@
         return;
       }
 
-      error("Can't call %s on a component that is not yet mounted. " + 'This is a no-op, but it might indicate a bug in your application. ' + 'Instead, assign to `this.state` directly or define a `state = {};` ' + 'class property with the desired state in the %s component.', callerName, componentName);
+      error("Can't call %s on a component that is not yet mounted. " + 'This is a no-op, but it might indicate a bug in your application. ' + 'Instead, assign to `this.3.6_state` directly or define a `3.6_state = {};` ' + 'class property with the desired 3.6_state in the %s component.', callerName, componentName);
 
       didWarnStateUpdateForUnmountedComponent[warningKey] = true;
     }
@@ -239,7 +239,7 @@
      * certainty that we are **not** in a DOM transaction.
      *
      * You may want to call this when you know that some deeper aspect of the
-     * component's state has changed but `setState` was not called.
+     * component's 3.6_state has changed but `setState` was not called.
      *
      * This will not invoke `shouldComponentUpdate`, but it will invoke
      * `componentWillUpdate` and `componentDidUpdate`.
@@ -254,14 +254,14 @@
     },
 
     /**
-     * Replaces all of the state. Always use this or `setState` to mutate state.
-     * You should treat `this.state` as immutable.
+     * Replaces all of the 3.6_state. Always use this or `setState` to mutate 3.6_state.
+     * You should treat `this.3.6_state` as immutable.
      *
-     * There is no guarantee that `this.state` will be immediately updated, so
-     * accessing `this.state` after calling this method may return the old value.
+     * There is no guarantee that `this.3.6_state` will be immediately updated, so
+     * accessing `this.3.6_state` after calling this method may return the old value.
      *
      * @param {ReactClass} publicInstance The instance that should rerender.
-     * @param {object} completeState Next state.
+     * @param {object} completeState Next 3.6_state.
      * @param {?function} callback Called after component is updated.
      * @param {?string} callerName name of the calling function in the public API.
      * @internal
@@ -271,13 +271,13 @@
     },
 
     /**
-     * Sets a subset of the state. This only exists because _pendingState is
+     * Sets a subset of the 3.6_state. This only exists because _pendingState is
      * internal. This provides a merging strategy that is not available to deep
      * properties which is confusing. TODO: Expose pendingState or don't use it
      * during the merge.
      *
      * @param {ReactClass} publicInstance The instance that should rerender.
-     * @param {object} partialState Next partial state to be merged with state.
+     * @param {object} partialState Next partial 3.6_state to be merged with 3.6_state.
      * @param {?function} callback Called after component is updated.
      * @param {?string} Name of the calling function in the public API.
      * @internal
@@ -295,7 +295,7 @@
     Object.freeze(emptyObject);
   }
   /**
-   * Base class helpers for the updating state of a component.
+   * Base class helpers for the updating 3.6_state of a component.
    */
 
 
@@ -311,11 +311,11 @@
 
   Component.prototype.isReactComponent = {};
   /**
-   * Sets a subset of the state. Always use this to mutate
-   * state. You should treat `this.state` as immutable.
+   * Sets a subset of the 3.6_state. Always use this to mutate
+   * 3.6_state. You should treat `this.3.6_state` as immutable.
    *
-   * There is no guarantee that `this.state` will be immediately updated, so
-   * accessing `this.state` after calling this method may return the old value.
+   * There is no guarantee that `this.3.6_state` will be immediately updated, so
+   * accessing `this.3.6_state` after calling this method may return the old value.
    *
    * There is no guarantee that calls to `setState` will run synchronously,
    * as they may eventually be batched together.  You can provide an optional
@@ -324,21 +324,21 @@
    *
    * When a function is provided to setState, it will be called at some point in
    * the future (not synchronously). It will be called with the up to date
-   * component arguments (state, props, context). These values can be different
+   * component arguments (3.6_state, props, context). These values can be different
    * from this.* because your function may be called after receiveProps but before
-   * shouldComponentUpdate, and this new state, props, and context will not yet be
+   * shouldComponentUpdate, and this new 3.6_state, props, and context will not yet be
    * assigned to this.
    *
-   * @param {object|function} partialState Next partial state or function to
-   *        produce next partial state to be merged with current state.
-   * @param {?function} callback Called after state is updated.
+   * @param {object|function} partialState Next partial 3.6_state or function to
+   *        produce next partial 3.6_state to be merged with current 3.6_state.
+   * @param {?function} callback Called after 3.6_state is updated.
    * @final
    * @protected
    */
 
   Component.prototype.setState = function (partialState, callback) {
     if (typeof partialState !== 'object' && typeof partialState !== 'function' && partialState != null) {
-      throw new Error('setState(...): takes an object of state variables to update or a ' + 'function which returns an object of state variables.');
+      throw new Error('setState(...): takes an object of 3.6_state variables to update or a ' + 'function which returns an object of 3.6_state variables.');
     }
 
     this.updater.enqueueSetState(this, partialState, callback, 'setState');
@@ -348,7 +348,7 @@
    * certainty that we are **not** in a DOM transaction.
    *
    * You may want to call this when you know that some deeper aspect of the
-   * component's state has changed but `setState` was not called.
+   * component's 3.6_state has changed but `setState` was not called.
    *
    * This will not invoke `shouldComponentUpdate`, but it will invoke
    * `componentWillUpdate` and `componentDidUpdate`.
@@ -1344,7 +1344,7 @@
   function lazyInitializer(payload) {
     if (payload._status === Uninitialized) {
       var ctor = payload._result;
-      var thenable = ctor(); // Transition to the next state.
+      var thenable = ctor(); // Transition to the next 3.6_state.
       // This might throw either because it's missing or throws. If so, we treat it
       // as still uninitialized and try again next time. Which is the same as what
       // happens if the ctor or any wrappers processing the ctor throws. This might
@@ -1352,14 +1352,14 @@
 
       thenable.then(function (moduleObject) {
         if (payload._status === Pending || payload._status === Uninitialized) {
-          // Transition to the next state.
+          // Transition to the next 3.6_state.
           var resolved = payload;
           resolved._status = Resolved;
           resolved._result = moduleObject;
         }
       }, function (error) {
         if (payload._status === Pending || payload._status === Uninitialized) {
-          // Transition to the next state.
+          // Transition to the next 3.6_state.
           var rejected = payload;
           rejected._status = Rejected;
           rejected._result = error;
