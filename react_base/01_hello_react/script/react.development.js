@@ -77,7 +77,7 @@
   /**
    * Keeps track of the current owner.
    *
-   * The current owner is the component who should own any components that are
+   * The current owner is the component who should own any Components that are
    * currently being constructed.
    */
   var ReactCurrentOwner = {
@@ -484,7 +484,7 @@
     // that shows the type (Symbol, Temporal.PlainDate, etc.) that caused the
     // problem and how that type was used: key, atrribute, input value prop, etc.
     // In most cases, this console output also shows the component and its
-    // ancestor components where the exception happened.
+    // ancestor Components where the exception happened.
     //
     // eslint-disable-next-line react-internal/safe-string-coercion
     return '' + value;
@@ -2336,7 +2336,7 @@
       }
 
       {
-        error('React.createElement: type is invalid -- expected a string (for ' + 'built-in components) or a class/function (for composite ' + 'components) but got: %s.%s', typeString, info);
+        error('React.createElement: type is invalid -- expected a string (for ' + 'built-in Components) or a class/function (for composite ' + 'Components) but got: %s.%s', typeString, info);
       }
     }
 
