@@ -4,6 +4,7 @@ import './App.css';
 
 const App = () => {
   return <div className="app">
+    {/*引入LogsFrom*/}
     <LogsForm/>
     <Logs/>
   </div>;
