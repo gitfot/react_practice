@@ -24,3 +24,32 @@
     color: #D62828;
 }
 
+.form-btn button{
+    width: 100px;
+    height: 50px;
+    border: none;
+    background-color: #194B49;
+    color: #fff;
+    font-weight: bold;
+    font-size: 30px;
+    transition: .3s;
+}
+
+.form-btn button:hover{
+    background-color: #D62828;
+}
+
+.delete{
+    margin-right: 10px;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.delete:hover{
+    color: #D62828;
+    transform: rotate(1turn);
+}
+

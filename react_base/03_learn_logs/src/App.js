@@ -36,14 +36,30 @@ const App = () => {
         }
     ]);
 
+    /**
+     * 想数组中添加记录
+     * @param log
+     */
     const saveLogHandler = (log) => {
         log.id = Date.now() + '';
         setLogsData([log, ...logsData]);
     }
 
+    /**
+     * 从数组中删除记录
+     * @param index
+     */
+    const delLogByIndex = (index) => {
+        setLogsData(prevState => {
+            const newLog = [...prevState];
+            newLog.splice(index, 1);
+            return newLog;
+        });
+    };
+
     return <div className="app">
         <LogsForm onSaveLog={saveLogHandler}/>
-        <Logs logsData={logsData}/>
+        <Logs logsData={logsData} delLog={delLogByIndex}/>
     </div>;
 };
 
