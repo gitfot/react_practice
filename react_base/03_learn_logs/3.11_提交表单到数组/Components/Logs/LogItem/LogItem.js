@@ -4,6 +4,20 @@ import './LogItem.css'
 import Card from "../../UI/Card/Card";
 
 const LogItem = (props) => {
+
+    /**
+     * 删除item的响应函数
+     */
+    const deleteItemHandler = () => {
+        // 临时性
+        const isDel = window.confirm('该操作不可恢复，确认吗？');
+        if (isDel){
+            // 删除当前的item，要删除item，其实就是要从数据的state移除指定的数据
+            // console.log(props.onDelLog);
+            props.delLog();
+        }
+    };
+
     return (
         <Card className="item">
             <MyDate date={props.date}/>
@@ -15,6 +29,10 @@ const LogItem = (props) => {
                 */}
                 <h2 className="desc">{props.desc}</h2>
                 <div className="time">{props.time}分钟</div>
+            </div>
+
+            <div>
+                <div onClick={deleteItemHandler} className='delete'>×</div>
             </div>
         </Card>
     );
