@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ReactDOM from "react-dom/client";
-import Todos from "./Todos";
+import Todos from "./todos";
 
 const App = () => {
     const [count, setCount] = useState(0);
