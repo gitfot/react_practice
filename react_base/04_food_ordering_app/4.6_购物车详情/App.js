@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Meals from "./components/Meals/Meals";
 import CartContext from "./store/cart-context";
 import FilterMeals from "./components/FilterMeals/FilterMeals";
+import Cart from "./components/Cart/Cart";
 
 
 // 模拟一组食物数据
@@ -131,6 +132,7 @@ const App = () => {
                 <Meals
                     mealsData={mealsData}
                 />
+                <Cart/>
             </div>
         </CartContext.Provider>
     );
