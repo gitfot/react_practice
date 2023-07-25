@@ -39,6 +39,7 @@
 
 .Price, .NoMeal{
     display: flex;
+    align-items: center;
     margin-left: 80rem;
     color: #fff;
     font-weight: bold;
