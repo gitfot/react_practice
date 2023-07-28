@@ -9,20 +9,24 @@ const Cart = () => {
 
     const ctx = useContext(CartContext);
 
-    const [showDetails, setDetails] = useState(false);
+    const [showDetails, setShowDetails] = useState(false);
     const [showCheckout, setShowCheckout] = useState(false);
 
     const toggleDetailsHandler = () => {
-        if (ctx.totalAmount === 0) return;
-        setDetails(prevState => !prevState);
+        if(ctx.totalAmount === 0) {
+            setShowDetails(false);
+            return;
+        }
+        setShowDetails(prevState => !prevState);
     }
 
     const hideCheckoutHandler = () => {
+        if(ctx.totalAmount === 0) return;
         setShowCheckout(false);
     };
 
     const showCheckoutHandler = () => {
-        setShowCheckout(true);
+        setShowCheckout(false);
     };
 
     return (
