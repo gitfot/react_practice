@@ -19,15 +19,29 @@ const CartDetails = () => {
         setShowConfirm(true);
     };
 
+    const cancelHandler = (e) => {
+        e.stopPropagation();
+        setShowConfirm(false);
+    };
+
+    const confirmHandler = () => {
+        // 清空购物车
+        ctx.clearCart();
+    };
+
     return (
         <Backdrop>
 
-            {showConfirm && <Confirm confirmText={'确认清空购物车吗？'}/>}
+            {showConfirm && <Confirm
+                onCancel={cancelHandler}
+                onConfirm={confirmHandler}
+                confirmText={'确认清空购物车吗？'}
+            />}
 
             <div className={classes.CartDetails} onClick={e => e.stopPropagation()}>
                 <header className={classes.Header}>
                     <h2 className={classes.Title}>餐品详情</h2>
-                    <div className={classes.Clear}>
+                    <div onClick={showConfirmHandler} className={classes.Clear}>
                         <FontAwesomeIcon icon={faTrash}/>
                         <span>清空购物车</span>
                     </div>

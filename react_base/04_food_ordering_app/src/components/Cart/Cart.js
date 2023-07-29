@@ -12,20 +12,21 @@ const Cart = () => {
     const [showDetails, setShowDetails] = useState(false);
     const [showCheckout, setShowCheckout] = useState(false);
 
+    // 添加一个显示详情页的函数
     const toggleDetailsHandler = () => {
         if(ctx.totalAmount === 0) {
             setShowDetails(false);
             return;
         }
         setShowDetails(prevState => !prevState);
-    }
-
-    const hideCheckoutHandler = () => {
-        if(ctx.totalAmount === 0) return;
-        setShowCheckout(false);
     };
 
     const showCheckoutHandler = () => {
+        if(ctx.totalAmount === 0) return;
+        setShowCheckout(true);
+    };
+
+    const hideCheckoutHandler = () => {
         setShowCheckout(false);
     };
 
