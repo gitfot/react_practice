@@ -1,0 +1,47 @@
+.Checkout {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+    background-color: #eee;
+    padding: 20em;
+}
+
+.Close {
+    color: #000;
+    font-size: 36rem;
+}
+
+.MealsDesc {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 0 20rem;
+}
+
+.Meals {
+
+}
+.Header {
+    display: flex;
+    border-bottom: 1px solid #dcdada;
+    align-items: center;
+    font-size: 20rem;
+}
+
+
+.Footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    height: 120rem;
+    border-top: 1px #f2f2f2 dashed;
+    font-weight: bold;
+    font-size: 30rem;
+}
+
+.TotalPrice {
+
+}

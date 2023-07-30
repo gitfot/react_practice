@@ -26,7 +26,7 @@ const CartDetails = () => {
 
     const confirmHandler = () => {
         // 清空购物车
-        ctx.cartDispatch({type:"clear"});
+        ctx.clearCart();
     };
 
     return (
