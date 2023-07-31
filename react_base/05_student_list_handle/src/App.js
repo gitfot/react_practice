@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import StudentList from "./conpoments/StudentList";
+import StudentContext from "./store/StudentContext";
 
 function App() {
     //学生数据，从远程api获取
@@ -10,7 +11,30 @@ function App() {
     const [error, setError] = useState(null);
 
     /**
-     *
+     * 同步方法调用
+     * @type {(function(*): Promise<void>)|*}
+     */
+    const getDataWithAwait = useCallback(async (url) => {
+        try{
+            setLoading(true);
+            setError(null);
+            const response = await fetch(url);
+            if(response.ok){
+                const data = await response.json();
+                setStudentData(data.data);
+            }else{
+                throw new Error('数据加载失败！');
+            }
+        }catch (e){
+            console.log(e)
+            setError(e);
+        }finally {
+            setLoading(false);
+        }
+    },[])
+
+    /**
+     * 异步方法调用
      * @type {(function(*): void)|*}
      */
     const getDataWithAsync = useCallback((url) => {
@@ -35,18 +59,20 @@ function App() {
         getDataWithAsync('http://localhost:1337/api/students')
     },[])
 
-    const loadDataHandler = () => {
+    const getStudentList = () => {
         getDataWithAsync('http://localhost:1337/api/students');
     };
 
 
-
     return (
-        <div className="App">
-            {(!loading && !error) && <StudentList data={studentData}/>}
-            {loading && <p>数据正在加载中...</p>}
-            {error && <p>数据加载异常！</p>}
-        </div>
+        <StudentContext.Provider value={{getStudentList}}>
+            <div className="App">
+                <button onClick={getStudentList}>刷新数据</button>
+                {(!loading && !error) && <StudentList data={studentData}/>}
+                {loading && <p>数据正在加载中...</p>}
+                {error && <p>数据加载异常！</p>}
+            </div>
+        </StudentContext.Provider>
     );
 }
 
