@@ -3,12 +3,13 @@
     display: flex;
     flex-flow: column;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: center; /*子元素在侧轴方向上居中对齐*/
     position: absolute;
     width: 700rem;
     height: 300rem;
     border-radius: 20px;
     background-color: #fff;
+    /*使用top/bottom/left/right为0 + margin:auto来定位到视口中心*/
     top: 0;
     bottom: 0;
     left: 0;

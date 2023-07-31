@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import StudentList from "./conpoments/StudentList";
 
 function App() {
@@ -9,11 +9,12 @@ function App() {
     // 创建一个state来记录错误信息
     const [error, setError] = useState(null);
 
+
     /**
-     *
-     * @type {(function(*): void)|*}
+     * 异步调用方法
+     * @param url
      */
-    const getDataWithAsync = useCallback((url) => {
+    const getDataWithAsync = (url) => {
         setError(null)
         setLoading(true);
 
@@ -29,16 +30,35 @@ function App() {
                 setLoading(false);
                 setError(e);
             });
-    },[])
+    }
+
+    /**
+     * 同步调用：
+     *  注意：
+     *      1、使用 await 关键字可以暂停函数的执行，直到 Promise 完成并返回其解析值。
+     *      2、await 关键字只能在异步函数内部使用
+     */
+    const getDataWithAwait = async (url) => {
+        try{
+            setLoading(true);
+            setError(null);
+            const response = await fetch(url);
+            if(response.ok){
+                const data = await response.json();
+                setStudentData(data.data);
+            }else{
+                throw new Error('数据加载失败！');
+            }
+        }catch (e){
+            setError(e);
+        }finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         getDataWithAsync('http://localhost:1337/api/students')
     },[])
-
-    const loadDataHandler = () => {
-        getDataWithAsync('http://localhost:1337/api/students');
-    };
-
 
 
     return (
