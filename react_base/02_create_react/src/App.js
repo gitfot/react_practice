@@ -6,13 +6,13 @@ const App = () => {
     const [childState, setChildState] = React.useState(0);  // 父组件的state
 
     // 需要传给子组件的函数
-    // const toChildFun = React.useCallback(() => {
-    //     console.log("toChildFun开始执行");
-    // }, [childState]);
+    const toChildFun = React.useCallback(() => {
+        console.log("子组件的函数开始执行");
+    }, [childState]);
 
-    const toChildFun = () => {
-        console.log("toChildFun开始执行");
-    };
+    // const toChildFun = () => {
+    //     console.log("toChildFun开始执行");
+    // };
 
     return (
         <div>
