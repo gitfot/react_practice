@@ -1,6 +1,9 @@
 .Meals{
     position: absolute;
+    /*.Meals元素的位置会相对于其包含元素的顶部位置偏移120rem，从而触发垂直滚动*/
     top: 120rem;
     bottom: 0;
+    /*overflow: auto;：如果.Meals元素内容超过其指定的高度，
+    则会显示滚动条以便查看内容，否则不显示滚动条。*/
     overflow: auto;
 }

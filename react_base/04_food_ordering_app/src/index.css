@@ -1,4 +1,5 @@
-*{
+*{  
+    /*怪异盒模型：width 和 height 属性的范围包含了 border、padding 和 content*/
     box-sizing: border-box;
 }
 
