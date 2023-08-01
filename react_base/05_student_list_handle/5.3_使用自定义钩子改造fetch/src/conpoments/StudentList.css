@@ -1,0 +1,19 @@
+
+table{
+    width: 500px;
+    border-collapse: collapse;
+    margin: auto;
+    font-family: Arial, sans-serif;
+}
+
+td, th{
+    border: 1px solid #000;
+    text-align: center;
+    padding: 8px; /* 添加内边距 */
+}
+
+th {
+    background-color: #f2f2f2; /* 添加表头背景色 */
+    font-weight: bold; /* 添加表头字体加粗 */
+}
+
