@@ -1,5 +1,6 @@
 import './StudentList.css'
 import Student from "./Student";
+import StudentForm from "./StudentForm";
 
 const StudentList = (props) => {
     return (
@@ -20,6 +21,8 @@ const StudentList = (props) => {
                     <Student key={stu.id} id={stu.id} data={stu.attributes}/>
                 )}
                 </tbody>
+
+                <tfoot><StudentForm/></tfoot>
             </table>
         </div>
     );
