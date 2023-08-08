@@ -20,6 +20,9 @@ const Menu = () => {
                 <li>
                     <Link to="/about">关于</Link>
                 </li>
+                <li>
+                    <Link to="/student">学生</Link>
+                </li>
             </ul>
         </div>
     );
