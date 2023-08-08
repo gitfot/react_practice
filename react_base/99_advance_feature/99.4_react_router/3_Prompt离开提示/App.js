@@ -9,6 +9,7 @@ function App() {
             <Menu/>
             <Switch>
                 <Route exact path="/" component={Home}/>
+
                 <Route path="/form">
                     <MyForm/>
                 </Route>

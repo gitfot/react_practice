@@ -15,7 +15,6 @@ const Menu = () => {
             <ul>
                 <li>
                     <Link to="/">主页</Link>
-
                 </li>
                 <li>
                     <Link to="/about">关于</Link>
