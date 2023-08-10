@@ -1,10 +1,13 @@
 import React from 'react';
+import {useSelector} from "react-redux";
 
 const Profile = () => {
+    const auth = useSelector(state => state.auth);
     return (
         <div>
-            <h2>用户信息的页面</h2>
-            <p>该页面只有在登录后才能查看</p>
+            <h2>登录账户</h2>
+            <p>username：{auth.user.username}</p>
+            <p>email:{auth.user.email}</p>
         </div>
     );
 };

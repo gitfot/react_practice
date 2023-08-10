@@ -7,18 +7,16 @@ import {useNavigate} from "react-router-dom";
 const AuthForm = () => {
     const [isLoginForm, setIsLoginForm] = useState(true);
 
-    // 引入注册的api
+    // 登录和注册的API接口
     const [regFn, {error:regError}] = useRegisterMutation();
     const [loginFn, {error:loginError}] = useLoginMutation();
 
+    //使用useRef存储输入内容时不会导致重新渲染
     const usernameInp = useRef();
     const pwdInp = useRef();
     const emailInp = useRef();
 
-    // 获取dispatch
     const dispatch = useDispatch();
-
-    // 获取Navigate
     const navigate = useNavigate();
 
     const submitHandler = (e) => {
@@ -29,7 +27,6 @@ const AuthForm = () => {
         const password = pwdInp.current.value;
         // 处理登录功能
         if(isLoginForm){
-            // console.log('登录 -->', username, password);
             loginFn({
                 identifier:username,
                 password
@@ -42,8 +39,6 @@ const AuthForm = () => {
                         }
                     ));
                     // 登录成功后，需要向系统中添加一个标识，标记用户的登录状态
-                    // 登录状态（布尔值，token(jwt)，用户信息）
-                    // 跳转页面到根目录
                     navigate("/", {replace:true});
                 }
             });
@@ -61,7 +56,6 @@ const AuthForm = () => {
                 }
             });
         }
-
     };
 
     return (

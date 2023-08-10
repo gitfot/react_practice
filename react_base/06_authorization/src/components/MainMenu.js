@@ -23,7 +23,7 @@ const MainMenu = () => {
                     auth.isLogged &&
                     <>
                         <li>
-                            <Link to={"/profile"}>{auth.user.username}</Link>
+                            <Link to={"/profile"}>用户</Link>
                         </li>
                         <li>
                             <Link
