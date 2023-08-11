@@ -1,19 +1,32 @@
 import React from 'react';
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useRoutes} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import Layout from "./components/Layout";
 import AuthPage from "./pages/AuthPage";
+import NeedAuth from "./components/NeedAuth";
 
 
 const App = () => {
+
+    const elements = useRoutes([
+        {
+            path:'/',
+            element:<HomePage/>
+        },
+        {
+            path:'profile',
+            element:<NeedAuth><ProfilePage/></NeedAuth>
+        },
+        {
+            path:'auth-form',
+            element:<AuthPage/>
+        }
+    ])
+
     return (
         <Layout>
-            <Routes>
-                <Route path={"/"} element={<HomePage/>}/>
-                <Route path={"profile"} element={<ProfilePage/>}/>
-                <Route path={"auth-form"} element={<AuthPage/>}/>
-            </Routes>
+            {elements}
         </Layout>
     );
 };
