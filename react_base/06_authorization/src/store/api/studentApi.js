@@ -3,7 +3,14 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 export const studentApi = createApi({
     reducerPath: 'studentApi', // Api的标识
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:1337/api/"
+        baseUrl: "http://localhost:1337/api/",
+        prepareHeaders:(headers, {getState})=>{
+            const token = getState().auth.token;
+            if(token){
+                headers.set("Authorization", `Bearer ${token}`);
+            }
+            return headers;
+        }
     }),
     tagTypes: ['student'], // 用来指定Api中的标签类型
     endpoints: builder => ({
