@@ -26,6 +26,9 @@ const MainMenu = () => {
                             <Link to={"/profile"}>用户</Link>
                         </li>
                         <li>
+                            <Link to={"/student"}>查看学生</Link>
+                        </li>
+                        <li>
                             <Link
                                 to={"/"}
                                 onClick={()=>dispatch(logout())}

@@ -5,6 +5,7 @@ import ProfilePage from "./pages/ProfilePage";
 import Layout from "./components/Layout";
 import AuthPage from "./pages/AuthPage";
 import NeedAuth from "./components/NeedAuth";
+import StudentPage from "./pages/StudentPage";
 
 
 const App = () => {
@@ -17,6 +18,10 @@ const App = () => {
         {
             path:'profile',
             element:<NeedAuth><ProfilePage/></NeedAuth>
+        },
+        {
+            path:'student',
+            element:<NeedAuth><StudentPage/></NeedAuth>
         },
         {
             path:'auth-form',
