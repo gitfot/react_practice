@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Routes, useRoutes} from "react-router-dom";
+import {useRoutes} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import Layout from "./components/Layout";
