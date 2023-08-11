@@ -27,19 +27,18 @@ const AuthForm = () => {
         const password = pwdInp.current.value;
         // 处理登录功能
         if(isLoginForm){
-            loginFn({
+            loginFn({ //调用登录API
                 identifier:username,
                 password
             }).then(res => {
                 if(!res.error){
-                    dispatch(login(
+                    dispatch(login( //存储登录状态
                         {
                             token:res.data.jwt,
                             user:res.data.user
                         }
                     ));
-                    // 登录成功后，需要向系统中添加一个标识，标记用户的登录状态
-                    navigate("/", {replace:true});
+                    navigate("/", {replace:true}); //跳转到主页
                 }
             });
         }else{

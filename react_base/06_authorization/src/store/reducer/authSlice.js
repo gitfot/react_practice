@@ -8,15 +8,16 @@ export const authSlice = createSlice({
             return {
                 isLogged:false,
                 token:null,
-                user:null
+                user:null,
+                expirationTime: 0
             }
         }
         return {
             isLogged:true,
             token,
-            user:localStorage.getItem('user')
+            user:localStorage.getItem('user'),
+            expirationTime: +localStorage.getItem('expirationTime')
         }
-
     },
     reducers:{
         login(state, action){
@@ -24,8 +25,11 @@ export const authSlice = createSlice({
             state.token = action.payload.token;
             state.user = action.payload.user;
 
+            state.expirationTime = 1000 * 60; // 设置失效日期 一分钟
+
             localStorage.setItem('token', state.token);
             localStorage.setItem('user', JSON.stringify(state.user));
+            localStorage.setItem('expirationTime', state.expirationTime);
         },
         logout(state){
             state.isLogged = false;
@@ -34,6 +38,7 @@ export const authSlice = createSlice({
 
             localStorage.removeItem('token');
             localStorage.removeItem('user');
+            localStorage.removeItem('expirationTime');
         }
     }
 });
