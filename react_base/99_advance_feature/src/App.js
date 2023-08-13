@@ -1,30 +1,22 @@
-import {Navigate, useRoutes} from 'react-router-dom'
-import Message from "./components/Message";
-import Home from "./components/Home";
-import Detail from "./components/Detail";
-import Menu from "./components/Menu";
+import useCount from "./store/useStore";
 
 const App = () => {
-    return  useRoutes([
-        {
-            path:"/",
-            element:<Menu/>
-        },
-        {
-            path:"/home",
-            element:<Home/>,
-        },
-        {
-            path:"/message",
-            element:<Message/>,
-            children:[
-                {
-                    path:"detail",
-                    element:<Detail/>
-                }
-            ]
-        }
-    ])
+    function Controls() {
+        const inc = useCount(state => state.inc)
+        return <button onClick={inc}>one up</button>
+    }
+
+    function Counter() {
+        const count = useCount(state => state.count)
+        return <h1>{count}</h1>
+    }
+
+    return (
+        <div className="App">
+            <Counter/>
+            <Controls/>
+        </div>
+    );
 }
 
 export default App;
