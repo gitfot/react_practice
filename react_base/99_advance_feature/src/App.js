@@ -1,22 +1,20 @@
-import useCount from "./store/useStore";
+import {useBookStore} from "./store/useBookStore";
 
 const App = () => {
-    function Controls() {
-        const inc = useCount(state => state.inc)
-        return <button onClick={inc}>one up</button>
-    }
 
-    function Counter() {
-        const count = useCount(state => state.count)
-        return <h1>{count}</h1>
-    }
+    const amount = useBookStore(state => state.amount)
+    const updateAmount = useBookStore(state => state.updateAmount)
 
     return (
-        <div className="App">
-            <Counter/>
-            <Controls/>
-        </div>
-    );
-}
+        <div>
 
-export default App;
+            <h1> Books: {amount} </h1>
+
+            <button
+                onClick={ () => updateAmount(10) }
+            > Update Amount </button>
+
+        </div>
+    )
+}
+export default App
